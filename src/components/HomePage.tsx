@@ -19,7 +19,12 @@ const HomePage = () => {
     type: "get-random-movies",
   });
   const randomMovies = randMovie?.movie_results;
-  console.log(randomMovies);
+
+  const { data: recMovies } = useGetMoviesQuery({
+    type: "get-boxoffice-movies",
+  });
+  const recentMovies = recMovies?.movie_results;
+
   return isFetching ? (
     <div>Loading...</div>
   ) : (
@@ -49,7 +54,38 @@ const HomePage = () => {
         >
           {randomMovies.map((movie: IMovies) => (
             <SwiperSlide key={movie.imdb_id} className="rounded-lg">
-              <MovieCard movie={movie} />
+              <MovieCard id={movie.imdb_id} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+
+      <div className="featured-movie ">
+        <Swiper
+          slidesPerView={1}
+          spaceBetween={10}
+          autoplay={{ delay: 1000 }}
+          navigation={true}
+          loop={true}
+          breakpoints={{
+            640: {
+              slidesPerView: 2,
+              spaceBetween: 20,
+            },
+            768: {
+              slidesPerView: 3,
+              spaceBetween: 40,
+            },
+            1024: {
+              slidesPerView: 4,
+              spaceBetween: 50,
+            },
+          }}
+          className="mySwiper "
+        >
+          {recentMovies.map((movie: any) => (
+            <SwiperSlide key={movie.imdb_id} className="rounded-lg">
+              <MovieCard id={movie.imdb_id} />
             </SwiperSlide>
           ))}
         </Swiper>

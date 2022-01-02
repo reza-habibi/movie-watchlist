@@ -1,9 +1,8 @@
 import React from 'react'
-import { useGetImageByImdbQuery } from '../../services/movieApi'
+import { useGetDetailsByImdbQuery } from '../../services/movieApi'
 
 const MoviePoster = ({id}: {id:string}) => {
-    const { data, isFetching } = useGetImageByImdbQuery(id)
-
+    const { data, isFetching } = useGetDetailsByImdbQuery({type:'get-movies-images-by-imdb' , id})
     return (
         isFetching ? <div>Loading...</div> :
             <div className='w-full'>

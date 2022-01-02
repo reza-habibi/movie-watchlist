@@ -15,10 +15,10 @@ export const movieApi = createApi({
       getMovies: builder.query({
         query: ({type , page}) => createRequest(`/?type=${type}&page=${page?page:1}`),
       }),
-      getImageByImdb:builder.query({
-          query:(imdbId)=>createRequest(`/?type=get-movies-images-by-imdb&imdb=${imdbId}`)
-      })
+      getDetailsByImdb : builder.query({
+          query:({type , id})=>createRequest(`/?type=${type}&imdb=${id}`)
+      }),
     }),
   });
 
-  export const {useGetMoviesQuery , useGetImageByImdbQuery} = movieApi
+  export const {useGetMoviesQuery , useGetDetailsByImdbQuery} = movieApi
