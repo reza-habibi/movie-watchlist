@@ -4,18 +4,23 @@ import './index.css';
 import App from './App';
 import { store } from './app/store';
 import { Provider } from 'react-redux';
-import * as serviceWorker from './serviceWorker';
+import { ThemeProvider } from './components/theme/ThemeContext';
+import Background from './components/theme/Background';
+import Toggle from './components/theme/ThemeToggle';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+      <ThemeProvider>
+        <Background>
+          <div className="absolute right-0 top-0 mr-4 mt-4 md:mr-6 md:mt-6">
+            <Toggle />
+          </div>
+
+          <Provider store={store}>
+            <App />
+          </Provider>
+        </Background>
+      </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
