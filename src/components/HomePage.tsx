@@ -18,7 +18,7 @@ import { IMovies } from "./../type.d";
 // install Swiper modules
 SwiperCore.use([Pagination]);
 const HomePage = () => {
-  const { data: randMovie, isFetching } = useGetMoviesQuery({
+  const { data: randMovie } = useGetMoviesQuery({
     type: "get-random-movies",
   });
   const randomMovies = randMovie?.movie_results;
@@ -28,7 +28,7 @@ const HomePage = () => {
   });
   const boxOfficeMovies = boxOffice?.movie_results;
 
-  const { data: popular } = useGetPopularMoviesQuery({
+  const { data: popular , isFetching } = useGetPopularMoviesQuery({
     type: "get-popular-movies",
     year: "2020",
   });
