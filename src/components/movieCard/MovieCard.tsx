@@ -51,7 +51,7 @@ const MovieCard = ({ id }: { id: string }) => {
           <div className="flex justify-between items-center">
             <div className="w-[50%] h-auto flex items-center">
               <img
-                src="./assets/images/imdb.svg"
+                src="/assets/images/imdb.svg"
                 alt="imdb-log"
                 className="mr-4 imdb-logo"
               />

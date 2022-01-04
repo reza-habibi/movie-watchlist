@@ -13,11 +13,17 @@ const watchListSlice = createSlice({
       state.movies = [...state.movies, action.payload];
       localStorage.setItem("movies", JSON.stringify(state.movies));
     },
+    removeFromWatchList: (state, { payload }) => {
+      state.movies = state.movies.filter(
+        (movie: IDetails) => movie.imdbID !== payload
+      );
+      localStorage.setItem("movies", JSON.stringify(state.movies));
+    },
   },
 });
 
 const { reducer, actions } = watchListSlice;
 
-export const { addToWatchList } = actions;
+export const { addToWatchList , removeFromWatchList } = actions;
 
 export default reducer;
