@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import MoviePoster from "./MoviePoster";
 import { BsPeopleFill, BsHeartFill } from "react-icons/bs";
 import { IDetails } from "./../../type.d";
@@ -6,22 +6,29 @@ import { useGetMovieDetailsQuery } from "../../services/movieDetailsApi";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addMovie } from "./../../redux/watchListAction";
-import { RootState } from "@reduxjs/toolkit/dist/query/core/apiState";
 import { useAppSelector } from "../../app/hooks";
 
 const MovieCard = ({ id }: { id: string }) => {
-  const { data, isFetching } = useGetMovieDetailsQuery(id);
+  const { data, isFetching, error } = useGetMovieDetailsQuery(id);
+  const [hasMovie, setHasMovie] = useState(false);
   const movie: IDetails = data;
   const dispatch = useDispatch();
+  const { movies } = useAppSelector((state) => state.watchList);
 
   const addToWatchList = (movie: IDetails) => {
     dispatch(addMovie(movie));
   };
 
-
+  useEffect(() => {
+    movies.find((storedMovie: IDetails) => storedMovie.imdbID === movie.imdbID)
+      ? setHasMovie(true)
+      : setHasMovie(false);
+  }, [movie.imdbID, movies]);
 
   return isFetching ? (
     <div>Loading...</div>
+  ) : error ? (
+    <div>someThing went wrong</div>
   ) : (
     <div className="max-w-sm rounded-lg overflow-hidden shadow-lg dark:shadow-white dark:bg-black">
       <div className="absolute top-0 flex justify-between w-full items-center p-4 z-50">
@@ -35,7 +42,13 @@ const MovieCard = ({ id }: { id: string }) => {
           className="bg-white  bg-opacity-50 p-2 rounded-full group"
           onClick={() => addToWatchList(movie)}
         >
-          <BsHeartFill className="text-white dark:text-black group-hover:text-red-600" />
+          <BsHeartFill
+            className={`text-white dark:text-black group-hover:text-red-600 ${
+              movies.find(
+                (addedMovie: IDetails) => addedMovie.imdbID === movie.imdbID
+              ) && "text-red-600"
+            }`}
+          />
         </div>
       </div>
       <Link to={`/movie/${id}`}>

@@ -9,6 +9,10 @@ export const store = configureStore({
     [movieDetailsApi.reducerPath]: movieDetailsApi.reducer,
     watchList: watchListReducer,
   },
+
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat([movieDetailsApi.middleware , movieApi.middleware
+    ]),
 });
 
 export type AppDispatch = typeof store.dispatch;

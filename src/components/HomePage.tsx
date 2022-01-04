@@ -14,6 +14,7 @@ import "swiper/css/pagination";
 import MovieCard from "./movieCard/MovieCard";
 import SwiperCore, { Pagination } from "swiper";
 import { IMovies } from "./../type.d";
+import DropDownList from "./DropDownList";
 
 // install Swiper modules
 SwiperCore.use([Pagination]);
@@ -28,7 +29,7 @@ const HomePage = () => {
   });
   const boxOfficeMovies = boxOffice?.movie_results;
 
-  const { data: popular , isFetching } = useGetPopularMoviesQuery({
+  const { data: popular, isFetching } = useGetPopularMoviesQuery({
     type: "get-popular-movies",
     year: "2020",
   });
@@ -37,98 +38,101 @@ const HomePage = () => {
   return isFetching ? (
     <div>Loading...</div>
   ) : (
-    <div className="container">
-      <div className="featured-movie ">
-        <Swiper
-          slidesPerView={1}
-          spaceBetween={10}
-          autoplay={{ delay: 1000 }}
-          navigation={true}
-          loop={true}
-          breakpoints={{
-            640: {
-              slidesPerView: 2,
-              spaceBetween: 20,
-            },
-            768: {
-              slidesPerView: 3,
-              spaceBetween: 40,
-            },
-            1024: {
-              slidesPerView: 4,
-              spaceBetween: 50,
-            },
-          }}
-          className="mySwiper "
-        >
-          {randomMovies.map((movie: IMovies) => (
-            <SwiperSlide key={movie.imdb_id} className="rounded-lg">
-              <MovieCard id={movie.imdb_id} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+    <>
+      <DropDownList />
+      <div className="container mt-10">
+        <div className="featured-movie ">
+          <Swiper
+            slidesPerView={1}
+            spaceBetween={10}
+            autoplay={{ delay: 1000 }}
+            navigation={true}
+            loop={true}
+            breakpoints={{
+              640: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+              },
+              768: {
+                slidesPerView: 3,
+                spaceBetween: 40,
+              },
+              1024: {
+                slidesPerView: 4,
+                spaceBetween: 50,
+              },
+            }}
+            className="mySwiper "
+          >
+            {randomMovies?.map((movie: IMovies) => (
+              <SwiperSlide key={movie.imdb_id} className="rounded-lg">
+                <MovieCard id={movie.imdb_id} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+        <div className="featured-movie ">
+          <Swiper
+            slidesPerView={1}
+            spaceBetween={10}
+            autoplay={{ delay: 1000 }}
+            navigation={true}
+            loop={true}
+            breakpoints={{
+              640: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+              },
+              768: {
+                slidesPerView: 3,
+                spaceBetween: 40,
+              },
+              1024: {
+                slidesPerView: 4,
+                spaceBetween: 50,
+              },
+            }}
+            className="mySwiper "
+          >
+            {boxOfficeMovies?.map((movie: any) => (
+              <SwiperSlide key={movie.imdb_id} className="rounded-lg">
+                <MovieCard id={movie.imdb_id} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>{" "}
+        <div className="featured-movie ">
+          <Swiper
+            slidesPerView={1}
+            spaceBetween={10}
+            autoplay={{ delay: 1000 }}
+            navigation={true}
+            loop={true}
+            breakpoints={{
+              640: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+              },
+              768: {
+                slidesPerView: 3,
+                spaceBetween: 40,
+              },
+              1024: {
+                slidesPerView: 4,
+                spaceBetween: 50,
+              },
+            }}
+            className="mySwiper "
+          >
+            {popularMovies?.map((movie: any) => (
+              <SwiperSlide key={movie.imdb_id} className="rounded-lg">
+                <MovieCard id={movie.imdb_id} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
       </div>
-      <div className="featured-movie ">
-        <Swiper
-          slidesPerView={1}
-          spaceBetween={10}
-          autoplay={{ delay: 1000 }}
-          navigation={true}
-          loop={true}
-          breakpoints={{
-            640: {
-              slidesPerView: 2,
-              spaceBetween: 20,
-            },
-            768: {
-              slidesPerView: 3,
-              spaceBetween: 40,
-            },
-            1024: {
-              slidesPerView: 4,
-              spaceBetween: 50,
-            },
-          }}
-          className="mySwiper "
-        >
-          {boxOfficeMovies.map((movie: any) => (
-            <SwiperSlide key={movie.imdb_id} className="rounded-lg">
-              <MovieCard id={movie.imdb_id} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>{" "}
-      <div className="featured-movie ">
-        <Swiper
-          slidesPerView={1}
-          spaceBetween={10}
-          autoplay={{ delay: 1000 }}
-          navigation={true}
-          loop={true}
-          breakpoints={{
-            640: {
-              slidesPerView: 2,
-              spaceBetween: 20,
-            },
-            768: {
-              slidesPerView: 3,
-              spaceBetween: 40,
-            },
-            1024: {
-              slidesPerView: 4,
-              spaceBetween: 50,
-            },
-          }}
-          className="mySwiper "
-        >
-          {popularMovies.map((movie: any) => (
-            <SwiperSlide key={movie.imdb_id} className="rounded-lg">
-              <MovieCard id={movie.imdb_id} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
-    </div>
+    </>
   );
 };
 
