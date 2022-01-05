@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { IDetails } from "../type";
 
 const initialState: { movies: IDetails[] } = {
-  movies: JSON.parse(localStorage.getItem("movies") || "") || [],
+  movies: localStorage.getItem('movies') ? JSON.parse(localStorage.getItem("movies") || "") : [],
 };
 
 const watchListSlice = createSlice({

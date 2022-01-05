@@ -104,3 +104,8 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #a0aec0;
 }
+
+
+.dropdown-menu::-webkit-scrollbar{
+  display: none;
+}

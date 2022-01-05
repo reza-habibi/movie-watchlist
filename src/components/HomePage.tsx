@@ -15,6 +15,7 @@ import MovieCard from "./movieCard/MovieCard";
 import SwiperCore, { Pagination } from "swiper";
 import { IMovies } from "./../type.d";
 import DropDownList from "./DropDownList";
+import Loading from './Loading';
 
 // install Swiper modules
 SwiperCore.use([Pagination]);
@@ -36,7 +37,7 @@ const HomePage = () => {
   const popularMovies = popular?.movie_results;
 
   return isFetching ? (
-    <div>Loading...</div>
+    <Loading/>
   ) : (
     <>
       <DropDownList />

@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addMovie } from "./../../redux/watchListAction";
 import { useAppSelector } from "../../app/hooks";
+import { Console } from "console";
 
 const MovieCard = ({ id }: { id: string }) => {
   const { data, isFetching, error } = useGetMovieDetailsQuery(id);
@@ -20,10 +21,11 @@ const MovieCard = ({ id }: { id: string }) => {
   };
 
   useEffect(() => {
-    movies.find((storedMovie: IDetails) => storedMovie.imdbID === movie.imdbID)
+ movies.find((storedMovie: IDetails) => storedMovie.imdbID === movie.imdbID)
       ? setHasMovie(true)
       : setHasMovie(false);
-  }, [movie.imdbID, movies]);
+      console.log('change')
+  }, [movies]);
 
   return isFetching ? (
     <div>Loading...</div>
@@ -39,14 +41,13 @@ const MovieCard = ({ id }: { id: string }) => {
         </div>
 
         <div
-          className="bg-white  bg-opacity-50 p-2 rounded-full group"
-          onClick={() => addToWatchList(movie)}
+          className="bg-white  bg-opacity-50 p-2 rounded-full group cursor-pointer"
+          onClick={() =>!hasMovie && addToWatchList(movie)}
         >
           <BsHeartFill
+            
             className={`text-white dark:text-black group-hover:text-red-600 ${
-              movies.find(
-                (addedMovie: IDetails) => addedMovie.imdbID === movie.imdbID
-              ) && "text-red-600"
+              hasMovie&& "text-red-600"
             }`}
           />
         </div>
