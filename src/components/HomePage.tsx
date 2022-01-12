@@ -15,7 +15,8 @@ import MovieCard from "./movieCard/MovieCard";
 import SwiperCore, { Pagination } from "swiper";
 import { IMovies } from "./../type.d";
 import DropDownList from "./DropDownList";
-import Loading from './Loading';
+import Loading from "./Loading";
+import SearchBox from "./SearchBox";
 
 // install Swiper modules
 SwiperCore.use([Pagination]);
@@ -37,12 +38,16 @@ const HomePage = () => {
   const popularMovies = popular?.movie_results;
 
   return isFetching ? (
-    <Loading/>
+    <Loading />
   ) : (
     <>
       <DropDownList />
-      <div className="container mt-10">
-        <div className="featured-movie ">
+      <SearchBox />
+      <div className="container divide-y divide-gray-200 mt-10">
+        <div className="featured-movie mt-10 pt-10">
+          <h2 className="text-gray-900 text-3xl font-semibold mb-10">
+            Featured Movies
+          </h2>
           <Swiper
             slidesPerView={1}
             spaceBetween={10}
@@ -72,7 +77,10 @@ const HomePage = () => {
             ))}
           </Swiper>
         </div>
-        <div className="featured-movie ">
+        <div className="featured-movie mt-10  pt-10">
+          <h2 className="text-gray-900 text-3xl font-semibold mb-10">
+            Box Office Movies
+          </h2>
           <Swiper
             slidesPerView={1}
             spaceBetween={10}
@@ -102,7 +110,10 @@ const HomePage = () => {
             ))}
           </Swiper>
         </div>{" "}
-        <div className="featured-movie ">
+        <div className="featured-movie mt-10 pt-10">
+          <h2 className="text-gray-900 text-3xl font-semibold mb-10">
+            Popular Movies
+          </h2>{" "}
           <Swiper
             slidesPerView={1}
             spaceBetween={10}

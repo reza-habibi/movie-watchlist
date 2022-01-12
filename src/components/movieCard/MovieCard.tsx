@@ -7,7 +7,8 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addMovie } from "./../../redux/watchListAction";
 import { useAppSelector } from "../../app/hooks";
-import { Console } from "console";
+import { motion } from "framer-motion";
+
 
 const MovieCard = ({ id }: { id: string }) => {
   const { data, isFetching, error } = useGetMovieDetailsQuery(id);
@@ -21,11 +22,11 @@ const MovieCard = ({ id }: { id: string }) => {
   };
 
   useEffect(() => {
- movies.find((storedMovie: IDetails) => storedMovie.imdbID === movie.imdbID)
+    !isFetching &&
+    movies.find((storedMovie: IDetails) => storedMovie.imdbID === movie.imdbID)
       ? setHasMovie(true)
       : setHasMovie(false);
-      console.log('change')
-  }, [movies]);
+  }, [isFetching, movies]);
 
   return isFetching ? (
     <div>Loading...</div>
@@ -40,17 +41,20 @@ const MovieCard = ({ id }: { id: string }) => {
           </span>
         </div>
 
-        <div
+        <motion.div
+          whileHover={{scale:'1.2'}}
+          whileTap={{scale:'0.8'}}
+          
+          transition={{ duration: 0.5 }}
           className="bg-white  bg-opacity-50 p-2 rounded-full group cursor-pointer"
-          onClick={() =>!hasMovie && addToWatchList(movie)}
+          onClick={() => !hasMovie && addToWatchList(movie)}
         >
           <BsHeartFill
-            
             className={`text-white dark:text-black group-hover:text-red-600 ${
-              hasMovie&& "text-red-600"
+              hasMovie && "text-red-600"
             }`}
           />
-        </div>
+        </motion.div>
       </div>
       <Link to={`/movie/${id}`}>
         <MoviePoster poster={movie.Poster} title={movie.Title} />

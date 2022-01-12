@@ -11,7 +11,9 @@ export const store = configureStore({
   },
 
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat([movieDetailsApi.middleware , movieApi.middleware
+    getDefaultMiddleware().concat([
+      movieDetailsApi.middleware,
+      movieApi.middleware,
     ]),
 });
 
